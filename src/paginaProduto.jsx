@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import './productPage.css'
+import './paginaProduto.css'
 import shoppingCartImg from './assets/shopping-cart-simple.svg';
 import notebookFrontImg from './assets/notebook-front-view.png';
 import notebookOpenImg from './assets/notebook-open-view.png';
@@ -11,14 +11,14 @@ const productImgs = [
 
 export default function App() {
 
-  const [currentImg, setCurrentImg] = useState(0);
+  const [imgAtual, setImgAtual] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImg((positon) => (positon + 1) % productImgs.length);
+    const intervalo = setIntervalo(() => {
+      setImgAtual((posicao) => (posicao + 1) % imgProdutos.length);
     }, 3000); 
 
-    return () => clearInterval(interval); 
+    return () => clearIntervalo(intervalo); 
   }, []);
 
   return (
@@ -44,20 +44,20 @@ export default function App() {
           <h2>Descrição do Produto</h2>
           <p>Este computador possui um processador Intel Core i5 de alto desempenho, 16GB de memória RAM e uma placa de vídeo NVIDIA GeForce RTX 4050. A tela de 15.6 polegadas oferece uma experiência visual imersiva e o sistema operacional Windows 11 garante uma navegação fluida e segura.</p>
         </div>
-        <main className='product-content'>
+        <main className='container-produto'>
           <div className='box-imagem'>
-            {productImgs.map((img, positon) => (
+            {imgProdutos.map((img, posicao) => (
               <img
-                key={positon}
+                key={posicao}
                 src={img.src}
                 alt={img.alt}
-                className={positon === currentImg ? 'active' : 'inactive'}
+                className={posicao === imgAtual ? 'ativo' : 'inativo'}
               />
             ))}
           </div>
           <h2>Notebook Gamer Acer Nitro V15</h2>
           <span className='preco'>R$ 5.399,10</span>
-          <button className='comprar-agora' id='compra' onClick={() => window.location.href = '/compra'}>COMPRAR AGORA</button>
+          <button className='comprar-agora' id='compra' onClick={() => window.location.href = '/carrinho.html'}>COMPRAR AGORA</button>
         </main>
       </div>
     </>
@@ -65,3 +65,5 @@ export default function App() {
 }
 
 
+function carrinhoDeCompras() {
+}

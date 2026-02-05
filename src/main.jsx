@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './productPage.jsx'
-import Cart from './cartPage.jsx'
+import App from './paginaProduto.jsx'
+import Cart from './paginaCarrinho.jsx'
 
 const inicialRoot = document.getElementById('root');
 const compraRoot = document.getElementById('compra');
