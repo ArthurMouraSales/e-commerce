@@ -4,7 +4,7 @@ import shoppingCartImg from './assets/shopping-cart-simple.svg';
 import notebookFrontImg from './assets/notebook-front-view.png';
 import notebookOpenImg from './assets/notebook-open-view.png';
 
-const productImgs = [
+const imgProdutos = [
     { src: notebookFrontImg, alt: "Notebook Front View" },
     { src: notebookOpenImg, alt: "Notebook Open View" }
   ];
@@ -14,13 +14,14 @@ export default function App() {
   const [imgAtual, setImgAtual] = useState(0);
 
   useEffect(() => {
-    const intervalo = setIntervalo(() => {
+    const intervalo = setInterval(() => {
       setImgAtual((posicao) => (posicao + 1) % imgProdutos.length);
     }, 3000); 
 
-    return () => clearIntervalo(intervalo); 
+    return () => clearInterval(intervalo); 
   }, []);
 
+  carrinhoDeCompras();
   return (
     <>
       <nav>
@@ -29,6 +30,7 @@ export default function App() {
           src={shoppingCartImg}
           alt="Carrinho de Compras"
           className="shopping-cart-icon"
+          onClick={() => window.location.href = '/carrinho.html'}
         />
       </nav>
       <div className='pagina-inteira'>
@@ -57,13 +59,31 @@ export default function App() {
           </div>
           <h2>Notebook Gamer Acer Nitro V15</h2>
           <span className='preco'>R$ 5.399,10</span>
-          <button className='comprar-agora' id='compra' onClick={() => window.location.href = '/carrinho.html'}>COMPRAR AGORA</button>
+          <button className='comprar-agora' id='compra' onClick={addProdutoAoCarrinho}>COMPRAR AGORA</button>
         </main>
       </div>
     </>
   )
 }
 
-
 function carrinhoDeCompras() {
+  const addProdutoAoCarrinho = () => {
+    const produto = {
+      id: 1,
+      nome: "Notebook Gamer Acer Nitro V15",
+      preco: 5399.10,
+      imagem: imgProdutos[0].src,
+      qtd: 1
+    };
+    
+    let produtosNoCarrinho = JSON.parse(localStorage.getItem('listaCarrinho')) || [];
+
+    const itemExistente = produtosNoCarrinho.some(item => item.id === produto.id);
+    if (!itemExistente) {
+      produtosNoCarrinho.push(produto);
+      localStorage.setItem('listaCarrinho', JSON.stringify(produtosNoCarrinho));
+    } 
+
+    window.location.href = '/carrinho.html';
+  }
 }
